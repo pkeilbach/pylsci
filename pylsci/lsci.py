@@ -1,4 +1,5 @@
 import numpy as np
+from timer import time_test
 
 # TODO
 #   - check out if we can vectorize the image iteration:
@@ -21,6 +22,15 @@ class Lsci(object):
         # apply contrast formula and return
         return np.std(kernel) / np.mean(kernel)
 
+    @staticmethod
+    def get_spatial_contrast_value_vectorized(patch: np.ndarray) -> np.ndarray:
+
+        # dividing by zero would cause an arithmetic error, so in case mean is 0, we divide by a really small number
+        if np.mean(patch) == 0:
+            return np.std(patch) / 1e-25
+        else:
+            return np.std(patch) / np.mean(patch)
+
     def __init__(self, nbh_spat: int = 3, nbh_temp: int = 25):
         self.nbh_spat = nbh_spat
         self.nbh_temp = nbh_temp
@@ -41,7 +51,8 @@ class Lsci(object):
     def nbh_temp(self, value: int):
         self._nbh_temp = value
 
-    def get_spatial_contrast_img(self, speckle_img: np.ndarray) -> np.ndarray:
+    @time_test
+    def get_spatial_contrast_img(self, speckle_img: np.ndarray, vectorized: bool = True) -> np.ndarray:
 
         # kernel size to iterate the image is the spatial neighborhood
         k = self.nbh_spat
@@ -50,19 +61,25 @@ class Lsci(object):
         contrast_img = np.zeros(speckle_img.shape)
 
         # get image dimensions
-        r, c = speckle_img.shape
+        rows, cols = speckle_img.shape
 
         # border margins
         m = int(k / 2)
 
         # iterate the image row by row but leave space for margins
         # for each pixel ...
-        for u in range(m, r - m):
-            for v in range(m, c - m):
-                # ... calculate the speckle contrast
-                contrast_img[u, v] = self.get_spatial_contrast_value(speckle_img, k, m, u, v)
+        for u in range(m, rows - m):
+            for v in range(m, cols - m):
 
-                # TODO this seems a better approach ...
-                # patch = speckle_img[u - m:u + m + 1, v - m:v + m + 1]
+                if vectorized:
+                    a = u - m
+                    b = u + m + 1
+                    c = v - m
+                    d = v + m + 1
+
+                    patch = speckle_img[a:b, c:d]
+                    contrast_img[u, v] = self.get_spatial_contrast_value_vectorized(patch)
+                else:
+                    contrast_img[u, v] = self.get_spatial_contrast_value(speckle_img, k, m, u, v)
 
         return contrast_img
