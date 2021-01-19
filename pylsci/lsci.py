@@ -5,6 +5,8 @@ from util import time_test
 #   - check out if we can vectorize the image iteration:
 #       https://realpython.com/numpy-array-programming/#image-feature-extraction
 #       https://www.pyimagesearch.com/2017/08/28/fast-optimized-for-pixel-loops-with-opencv-and-python/
+#       https://medium.com/analytics-vidhya/implementing-convolution-without-for-loops-in-numpy-ce111322a7cd
+#       https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
 #   - optimize temporal code
 
 
@@ -121,9 +123,9 @@ class Lsci(object):
 
         return contrast_img
 
-    def get_temporal_contrast_img(self, imgs_3D: np.ndarray) -> np.ndarray:
+    def get_temporal_contrast_img(self, img_stack: np.ndarray) -> np.ndarray:
         # get dimensions
-        s, w, h = imgs_3D.shape
+        s, w, h = img_stack.shape
 
         # determine number of lsci images
         n = int(s / self.nbh_temp)
@@ -145,7 +147,7 @@ class Lsci(object):
         # iterate all s=1000 images, depending on nbh, calculate multiple lsci images
         for i in range(0, n):
             # start with start index, end at the specified neighborhood
-            layer = imgs_3D[start:end, :, :]
+            layer = img_stack[start:end, :, :]
 
             # apply contrast formula in layer
             # axis = 0 specifies the temporal domain
