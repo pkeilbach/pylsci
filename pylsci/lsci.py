@@ -97,7 +97,7 @@ class Lsci(object):
         k = self.nbh_spat
 
         # create the array for the contrast values, needs to be same size as speckle image
-        contrast_img = np.zeros(speckle_img.shape)
+        s_lsci = np.zeros(speckle_img.shape)
 
         # get image dimensions
         rows, cols = speckle_img.shape
@@ -117,11 +117,11 @@ class Lsci(object):
                     d = v + m + 1
 
                     patch = speckle_img[a:b, c:d]
-                    contrast_img[u, v] = self.get_spatial_contrast_value_vectorized(patch)
+                    s_lsci[u, v] = self.get_spatial_contrast_value_vectorized(patch)
                 else:
-                    contrast_img[u, v] = self.get_spatial_contrast_value(speckle_img, k, m, u, v)
+                    s_lsci[u, v] = self.get_spatial_contrast_value(speckle_img, k, m, u, v)
 
-        return contrast_img
+        return s_lsci
 
     def get_temporal_contrast_img(self, img_stack: np.ndarray) -> np.ndarray:
         # get dimensions
@@ -141,7 +141,7 @@ class Lsci(object):
         end = self.nbh_temp
 
         # create array for lsci images that will be caluclated, size n is depending on the temporal neighborhood
-        tlsci_vals = np.zeros([n, w, h])
+        t_lsci = np.zeros([n, w, h])
 
         # from the cuboid of s=1000 laser speckle images, lsci images will be calculated in layers of nbh
         # iterate all s=1000 images, depending on nbh, calculate multiple lsci images
@@ -149,34 +149,15 @@ class Lsci(object):
             # start with start index, end at the specified neighborhood
             layer = img_stack[start:end, :, :]
 
-            # apply contrast formula in layer
-            # axis = 0 specifies the temporal domain
-            # numpy automatically calculates std and average for all pixels in the image
-            std = np.std(layer, axis=0)
-            mean = np.mean(layer, axis=0)
-
-            # if mean is zero, the contrast formula will throw an arithmetic error (division by zero)
-            # hence, use small value instead
-            mean[mean == 0] = 1e-25
-
-            # apply contrast formula
-            contrast = std / mean
-
-            # in theory, lsci is not greater than 1.
-            # In practice, tests show that this may happen due to noise or similar
-            # hence, set contrast to 1 in case greater values occur.
-            contrast[contrast > 1] = 1
-
             # store the calculated values at the ith index in the lsci image array
-            tlsci_vals[i, :, :] = contrast
+            t_lsci[i, :, :] = self.calculate_temporal_contrast(layer)
 
-            # move forward in temporal domain, and c
-            # set start index for next layer
+            # set start and end index for next layer
             start = end
-            # set end index for next layer
             end = start + self.nbh_temp
 
-        return np.mean(tlsci_vals, axis=0)
+        # average the lsci image stack to return a single averaged t_lsci image
+        return np.mean(t_lsci, axis=0)
 
 
         # a, b, c = speckle_imgs.shape
