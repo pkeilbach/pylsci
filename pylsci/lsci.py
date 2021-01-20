@@ -17,7 +17,7 @@ class Lsci(object):
         return std / mean
 
     @staticmethod
-    def temporal_contrast(layer: np.ndarray) -> np.ndarray:
+    def calc_temporal_contrast(layer: np.ndarray) -> np.ndarray:
 
         # apply contrast formula in layer
         # axis = 0 specifies the temporal domain
@@ -40,7 +40,7 @@ class Lsci(object):
         return contrast
 
     @staticmethod
-    def spatial_contrast(patch: np.ndarray) -> float:
+    def calc_spatial_contrast(patch: np.ndarray) -> float:
         std = np.std(patch)
         mean = np.mean(patch)
         return Lsci.contrast(std, mean)
@@ -82,7 +82,7 @@ class Lsci(object):
         self._nbh_temp = value
 
     @time_test
-    def get_spatial_contrast_img(self, speckle_img: np.ndarray) -> np.ndarray:
+    def spatial_contrast(self, speckle_img: np.ndarray) -> np.ndarray:
 
         # kernel size to iterate the image is the spatial neighborhood
         k = self.nbh_spat
@@ -105,11 +105,11 @@ class Lsci(object):
                 c = v - m
                 d = v + m + 1
 
-                s_lsci[u, v] = self.spatial_contrast(patch=speckle_img[a:b, c:d])
+                s_lsci[u, v] = self.calc_spatial_contrast(patch=speckle_img[a:b, c:d])
 
         return s_lsci
 
-    def get_temporal_contrast_img(self, img_stack: np.ndarray) -> np.ndarray:
+    def temporal_contrast(self, img_stack: np.ndarray) -> np.ndarray:
         # get dimensions
         s, w, h = img_stack.shape
 
@@ -136,7 +136,7 @@ class Lsci(object):
             layer = img_stack[start:end, :, :]
 
             # store the calculated values at the ith index in the lsci image array
-            t_lsci[i, :, :] = self.temporal_contrast(layer)
+            t_lsci[i, :, :] = self.calc_temporal_contrast(layer)
 
             # set start and end index for next layer
             start = end
@@ -144,6 +144,10 @@ class Lsci(object):
 
         # average the lsci image stack to return a single averaged t_lsci image
         return np.mean(t_lsci, axis=0)
+
+    # TODO
+    def spatio_temporal_contrast(self, img_stack: np.ndarray) -> np.ndarray:
+        pass
 
     # @staticmethod
     # def get_spatial_contrast_value(speckle_img: np.ndarray, k: int, m: int, u: int, v: int) -> float:
