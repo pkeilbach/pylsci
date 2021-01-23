@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 from pylsci.lsci import Lsci
 from util import stack_images
+import numpy as np
 
 
 def show_image(img):
@@ -18,6 +19,14 @@ print(speckle_img_stack.shape)
 t_lsci = lsci.temporal_contrast(speckle_img_stack)
 show_image(t_lsci)
 print(t_lsci.shape)
+
+print('spatio-temporal LSCI ...')
+speckle_imgs = plt.imread('test/bf.png')
+speckle_img_stack = stack_images(speckle_imgs)
+print(speckle_img_stack.shape)
+st_lsci = lsci.spatio_temporal_contrast(speckle_img_stack)
+show_image(st_lsci)
+print(st_lsci.shape)
 
 print('spatial LSCI ...')
 speckle_img = plt.imread('test/spatial.tif')
