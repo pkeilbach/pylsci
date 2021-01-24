@@ -5,7 +5,9 @@ A Python Package for Laser Speckle Contrast Imaging.
 ---
 
 The code for this package was developed for my thesis on 
-[Fingerprint Presentation Attack Detection using Laser Speckle Contrast Imaging](https://www.researchgate.net/publication/329391997_Fingerprint_Presentation_Attack_Detection_using_Laser_Speckle_Contrast_Imaging).
+[Fingerprint Presentation Attack Detection using Laser Speckle Contrast Imaging](https://www.researchgate.net/publication/329391997_Fingerprint_Presentation_Attack_Detection_using_Laser_Speckle_Contrast_Imaging):
+
+- P. Keilbach, J. Kolberg, M. Gomez-Barrero, C. Busch and H. Langweg, "Fingerprint Presentation Attack Detection using Laser Speckle Contrast Imaging," 2018 International Conference of the Biometrics Special Interest Group (BIOSIG), Darmstadt, 2018, pp. 1-6, doi: https://10.23919/BIOSIG.2018.8552931.
 
 
 ## Installation
@@ -65,3 +67,4 @@ To understand the theory and concepts of LSCI, the following papers are recommen
 - Vaz, P. G., Humeau-Heurtier, A., Figueiras, E., Correia, C., & Cardoso, J. (2016). Laser Speckle Imaging to Monitor Microvascular Blood Flow: A Review. IEEE reviews in biomedical engineering, 9, 106–120. https://doi.org/10.1109/RBME.2016.2532598
 - Senarathna, J., Rege, A., Li, N., & Thakor, N. V. (2013). Laser Speckle Contrast Imaging: theory, instrumentation and applications. IEEE reviews in biomedical engineering, 6, 99–110. https://doi.org/10.1109/RBME.2013.2243140
 - Briers, D., Duncan, D. D., Hirst, E., Kirkpatrick, S. J., Larsson, M., Steenbergen, W., Stromberg, T., & Thompson, O. B. (2013). Laser speckle contrast imaging: theoretical and practical limitations. Journal of biomedical optics, 18(6), 066018. https://doi.org/10.1117/1.JBO.18.6.066018
+
