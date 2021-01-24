@@ -22,6 +22,8 @@ since it is used to do all the array related calculations.
 
 ## Usage
 
+also see the demo-notebook
+
 ```python
 from pylsci import Lsci
 
