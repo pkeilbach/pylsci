@@ -24,12 +24,18 @@ since it is used to do all the array related calculations.
 ```python
 from pylsci import Lsci
 
+# you will somehow need to convert raw speckle images to numpy arrays, eg using matplotlib
+from matplotlib import pyplot as plt
+
+# you will need speckle images as numpy 2D array (single speckle image) for spatial contrast calculation ...
+speckle_img = plt.imread('img/spatial.tif')
+# or a sequence of speckle images as a numpy 3D array (time series of speckle images) 
+# for temporal or spatio-temporal contrast calculation
+# stack_images() is some custom function that converts the image sequence to a 3D array
+speckle_img_sequence = plt.imread('img/temporal.png').stack_images()
+
 # create an Lsci object
 lsci = Lsci()
-
-# you need an image as a 2D numpy array or a series of images as a 3D numpy array
-# speckle_img  # this should be a 2D numpy array
-# speckle_img_sequence  # this should be a 3D numpy array
 
 # the spatial contrast requires a single speckle image as a numpy 2D array
 s_lsci = lsci.spatial_contrast(speckle_img)
@@ -55,6 +61,7 @@ with the `spatial_contrast()` and `spatio_temporal_contrast()` functions may tak
 
 To understand the theory and concepts of LSCI, the following papers are recommended:
 
-- Paper 1
-- Paper 2
-- Paper 3
+- Boas, D. A., & Dunn, A. K. (2010). Laser speckle contrast imaging in biomedical optics. Journal of biomedical optics, 15(1), 011109. https://doi.org/10.1117/1.3285504
+- Vaz, P. G., Humeau-Heurtier, A., Figueiras, E., Correia, C., & Cardoso, J. (2016). Laser Speckle Imaging to Monitor Microvascular Blood Flow: A Review. IEEE reviews in biomedical engineering, 9, 106–120. https://doi.org/10.1109/RBME.2016.2532598
+- Senarathna, J., Rege, A., Li, N., & Thakor, N. V. (2013). Laser Speckle Contrast Imaging: theory, instrumentation and applications. IEEE reviews in biomedical engineering, 6, 99–110. https://doi.org/10.1109/RBME.2013.2243140
+- Briers, D., Duncan, D. D., Hirst, E., Kirkpatrick, S. J., Larsson, M., Steenbergen, W., Stromberg, T., & Thompson, O. B. (2013). Laser speckle contrast imaging: theoretical and practical limitations. Journal of biomedical optics, 18(6), 066018. https://doi.org/10.1117/1.JBO.18.6.066018
