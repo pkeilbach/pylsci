@@ -4,7 +4,7 @@ from util import stack_images
 
 # TODO
 #   - README.md paper references
-#   - upload
+#   - upload to real pypi
 #   - public github project
 #   - implement test data to load for demo purpose
 
