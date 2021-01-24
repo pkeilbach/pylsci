@@ -4,6 +4,7 @@ from util import stack_images
 
 # TODO
 #   - demo notebook
+#   - nbh_s property must check for odd neighborhoods
 #   - contact author for permission to use image and verification of code
 
 
