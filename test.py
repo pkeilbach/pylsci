@@ -1,7 +1,11 @@
 from matplotlib import pyplot as plt
 from pylsci.lsci import Lsci
 from util import stack_images
-import numpy as np
+
+# TODO
+#   - README.md paper references
+#   - upload
+#   - public github project
 
 
 def show_image(img):

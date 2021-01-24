@@ -1,12 +1,4 @@
 import numpy as np
-from util import time_test
-
-# TODO
-#   - check out if we can vectorize the image iteration:
-#       https://realpython.com/numpy-array-programming/#image-feature-extraction
-#       https://www.pyimagesearch.com/2017/08/28/fast-optimized-for-pixel-loops-with-opencv-and-python/
-#       https://medium.com/analytics-vidhya/implementing-convolution-without-for-loops-in-numpy-ce111322a7cd
-#       https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
 
 
 class Lsci(object):
@@ -45,9 +37,9 @@ class Lsci(object):
         return Lsci.contrast(std, mean)
 
     @staticmethod
-    def calc_spatio_temporal_contrast(patch: np.ndarray) -> float:
-        std = np.std(patch)
-        mean = np.mean(patch)
+    def calc_spatio_temporal_contrast(cuboid: np.ndarray) -> float:
+        std = np.std(cuboid)
+        mean = np.mean(cuboid)
         return Lsci.contrast(std, mean)
 
     def __init__(self, nbh_spat: int = 3, nbh_temp: int = 25):
@@ -70,7 +62,6 @@ class Lsci(object):
     def nbh_temp(self, value: int):
         self._nbh_temp = value
 
-    @time_test
     def spatial_contrast(self, speckle_img: np.ndarray) -> np.ndarray:
 
         # kernel size to iterate the image is the spatial neighborhood
@@ -99,7 +90,6 @@ class Lsci(object):
 
         return s_lsci
 
-    @time_test
     def temporal_contrast(self, img_stack: np.ndarray) -> np.ndarray:
 
         # get dimensions
@@ -142,7 +132,6 @@ class Lsci(object):
         # average the lsci image stack to return a single averaged t_lsci image
         return np.mean(t_lsci, axis=0)
 
-    @time_test
     def spatio_temporal_contrast(self, img_stack: np.ndarray, cubic: bool = False) -> np.ndarray:
         # cubic = isotropic vs anisotropic (see Vaz' paper)
 
@@ -186,62 +175,7 @@ class Lsci(object):
 
                     x = int(i / k_t)
 
-                    cube = img_stack[a:b, c:d, e:f]
-                    st_lsci[x, w, h] = self.calc_spatio_temporal_contrast(cube)
+                    cuboid = img_stack[a:b, c:d, e:f]
+                    st_lsci[x, w, h] = self.calc_spatio_temporal_contrast(cuboid)
 
         return np.mean(st_lsci, axis=0)
-
-    # def temporal_contrast(self, img_stack: np.ndarray) -> np.ndarray:
-    #     # get dimensions
-    #     s, w, h = img_stack.shape
-    #
-    #     # determine number of lsci images
-    #     n = int(s / self.nbh_temp)
-    #
-    #     # create array for lsci images that will be caluclated, size n is depending on the temporal neighborhood
-    #     t_lsci = np.zeros([n, w, h])
-    #
-    #     # in case nbh does not match s, equally omit first and last images in layer
-    #     # e.g. 1000 / 15 = 66 rem 10 --> shift start index 10/2 = 5 images
-    #     # for 1000 / 25 = 40 rem 0 --> start will be 0 as usual
-    #     shift = int((s % self.nbh_temp) / 2)
-    #
-    #     # set start index
-    #     start = shift
-    #     # set end index of the first lsci images that will be calculated to the nbh over which it should be calculated
-    #     end = self.nbh_temp
-    #     step = self.nbh_temp
-    #
-    #     # from the cuboid of s=1000 laser speckle images, lsci images will be calculated in layers of nbh
-    #     # iterate all s=1000 images, depending on nbh, calculate multiple lsci images
-    #     for i in range(0, n):
-    #     # for i in range(0, s, step):
-    #         # start with start index, end at the specified neighborhood
-    #         layer = img_stack[start:end, :, :]
-    #         # j = i + step
-    #         # layer = img_stack[i:j, :, :]
-    #
-    #         # a = int(i/step)
-    #
-    #         # store the calculated values at the ith index in the lsci image array
-    #         t_lsci[i, :, :] = self.calc_temporal_contrast(layer)
-    #
-    #         # set start and end index for next layer
-    #         start = end
-    #         end = start + self.nbh_temp
-    #
-    #     # average the lsci image stack to return a single averaged t_lsci image
-    #     return np.mean(t_lsci, axis=0)
-
-    # @staticmethod
-    # def get_spatial_contrast_value(speckle_img: np.ndarray, k: int, m: int, u: int, v: int) -> float:
-    #     # create kernel
-    #     kernel = np.zeros((k, k))
-    #     # fill kernel with the pixel values of the speckle image and consider margin
-    #     for i in range(-m, m + 1):
-    #         for j in range(-m, m + 1):
-    #             kernel[m + i, m + j] = speckle_img[u + i, v + j]
-    #
-    #     return np.std(kernel) / np.mean(kernel)
-    #     # return Lsci.calculate_speckle_contrast(kernel)
-    #     # return contrast
