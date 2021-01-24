@@ -6,7 +6,8 @@ from util import stack_images
 #   - README.md paper references
 #   - upload to real pypi
 #   - public github project
-#   - implement test data to load for demo purpose
+#   - demo notebook
+#   - contact author for permission to use image and verification of code
 
 
 def show_image(img):
@@ -18,7 +19,7 @@ def show_image(img):
 lsci = Lsci()
 
 print('temporal LSCI ...')
-speckle_imgs = plt.imread('test/bf.png')
+speckle_imgs = plt.imread('img/temporal.png')
 speckle_img_stack = stack_images(speckle_imgs)
 print(speckle_img_stack.shape)
 t_lsci = lsci.temporal_contrast(speckle_img_stack)
@@ -26,7 +27,7 @@ show_image(t_lsci)
 print(t_lsci.shape)
 
 print('spatio-temporal LSCI ...')
-speckle_imgs = plt.imread('test/bf.png')
+speckle_imgs = plt.imread('img/temporal.png')
 speckle_img_stack = stack_images(speckle_imgs)
 print(speckle_img_stack.shape)
 st_lsci = lsci.spatio_temporal_contrast(speckle_img_stack)
@@ -34,7 +35,7 @@ show_image(st_lsci)
 print(st_lsci.shape)
 
 print('spatial LSCI ...')
-speckle_img = plt.imread('test/spatial.tif')
+speckle_img = plt.imread('img/spatial.tif')
 print(speckle_img.shape)
 s_lsci = lsci.spatial_contrast(speckle_img)
 show_image(s_lsci)
