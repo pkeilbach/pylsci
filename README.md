@@ -7,8 +7,7 @@ A Python Package for Laser Speckle Contrast Imaging.
 The code for this package was developed for my thesis on 
 [Fingerprint Presentation Attack Detection using Laser Speckle Contrast Imaging](https://www.researchgate.net/publication/329391997_Fingerprint_Presentation_Attack_Detection_using_Laser_Speckle_Contrast_Imaging):
 
-- P. Keilbach, J. Kolberg, M. Gomez-Barrero, C. Busch and H. Langweg, "Fingerprint Presentation Attack Detection using Laser Speckle Contrast Imaging," 2018 International Conference of the Biometrics Special Interest Group (BIOSIG), Darmstadt, 2018, pp. 1-6, doi: https://10.23919/BIOSIG.2018.8552931.
-
+- Keilbach, P., Kolberg, J., Gomez-Barrero, M., Busch, C., & Langweg, H. (2018). Fingerprint Presentation Attack Detection using Laser Speckle Contrast Imaging. International Conference of the Biometrics Special Interest Group (BIOSIG), Darmstadt, 2018, pp. 1-6, doi: https://10.23919/BIOSIG.2018.8552931.
 
 ## Installation
 
