@@ -6,6 +6,7 @@ from util import stack_images
 #   - README.md paper references
 #   - upload
 #   - public github project
+#   - implement test data to load for demo purpose
 
 
 def show_image(img):
