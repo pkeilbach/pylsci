@@ -3,9 +3,6 @@ from pylsci.lsci import Lsci
 from util import stack_images
 
 # TODO
-#   - README.md paper references
-#   - upload to real pypi
-#   - public github project
 #   - demo notebook
 #   - contact author for permission to use image and verification of code
 

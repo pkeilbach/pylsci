@@ -8,8 +8,8 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setuptools.setup(
-    name='pylsci-pk17',
-    version='1.0.5',
+    name='pylsci',
+    version='1.0.0',
     author='Pascal Keilbach',
     author_email='python@pk17.org',
     description='Python Package for Laser Speckle Contrast Imaging',
@@ -20,9 +20,6 @@ setuptools.setup(
     install_requires=[
         'numpy'
     ],
-    # dependency_links=[
-    #     'https://pypi.org/simple/'
-    # ],
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
