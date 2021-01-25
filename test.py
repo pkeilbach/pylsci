@@ -4,7 +4,6 @@ from util import stack_images
 
 # TODO
 #   - demo notebook
-#   - nbh_s property must check for odd neighborhoods
 #   - contact author for permission to use image and verification of code
 
 
@@ -15,6 +14,8 @@ def show_image(img):
 
 
 lsci = Lsci()
+# lsci.nbh_s = 4
+# lsci.nbh_s = 5
 
 print('temporal LSCI ...')
 speckle_imgs = plt.imread('img/temporal.png')
