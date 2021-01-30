@@ -41,7 +41,7 @@ Raw Laser Speckle Image (2D or 3D NumPy Array) :point_right: PyLSCI :point_right
 The following code provides a quick demo of how to use the PyLSCI package. 
 For a more detailed documentation, please see the 
 [Jupyter Notebook `demo.ipynb`](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb)
-provided wwith the GitHub project.
+that is provided in this GitHub project.
 
 ```python
 from pylsci import Lsci
