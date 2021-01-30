@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setuptools.setup(
     name='pylsci',
-    version='1.0.0',
+    version='1.0.1',
     author='Pascal Keilbach',
     author_email='python@pk17.org',
     description='Python Package for Laser Speckle Contrast Imaging',
