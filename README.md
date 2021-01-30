@@ -34,9 +34,14 @@ Raw Laser Speckle Image (2D or 3D NumPy Array) :point_right: PyLSCI :point_right
 
 > The process of converting the raw laser speckle images to NumPy arrays is out of scope of the `pylsci` package,
 > since this process is highly dependent on a particular LSCI setup.
-> See the demo notebook for an example.   
+> See the [demo](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb) notebook for an example.   
 
 ## Usage
+
+The following code provides a quick demo of how to use the PyLSCI package. 
+For a more detailed documentation, please see the 
+[Jupyter Notebook `demo.ipynb`](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb)
+provided wwith the GitHub project.
 
 ```python
 from pylsci import Lsci
