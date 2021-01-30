@@ -1,10 +1,6 @@
 from pylsci.lsci import Lsci
 from util import stack_images, show_image
 
-# TODO
-#   - demo notebook
-
-
 lsci = Lsci()
 
 print('temporal LSCI ...')
