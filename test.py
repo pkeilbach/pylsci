@@ -1,4 +1,4 @@
-from pylsci.lsci import Lsci
+from pylsci import Lsci
 from util import stack_images, show_image
 
 lsci = Lsci()
