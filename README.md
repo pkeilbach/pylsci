@@ -2,6 +2,8 @@
 
 A Python Package for Laser Speckle Contrast Imaging.
 
+It converts raw laser speckle data (as 2D or 3D NumPy arrays) to laser speckle contrast images (a 2D NumPy array). 
+
 ---
 
 The code for this package was developed for my thesis on 
@@ -18,39 +20,71 @@ pip install pylsci
 ## Dependencies
 
 The PyLSCI packages depends on [NumPy](https://numpy.org/), 
-since it is used to do all the array related calculations.
+which is is used to do all the array related calculations.
+
+## Workflow
+
+To work with this package, you need to have you laser speckle images available as 2D or 3D NumPy arrays:
+
+- For spatial contrast calculation, PyLSCI expects a single, raw laser speckle image as a 2D NumPy Array.
+- For temporal or spatio-temporal contrast calculation, 
+PyLSCI expects a time series of multiple raw laser speckle images as a 3D NumPy Array.
+
+Raw Laser Speckle Image (2D or 3D NumPy Array) :point_right: PyLSCI :point_right: Laser Speckle Contrast Image (2D NumPy Array)
+
+> The process of converting the raw laser speckle images to NumPy arrays is out of scope of the `pylsci` package,
+> since this process is highly dependent on a particular LSCI setup.
+> See the [demo](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb) notebook for an example.   
 
 ## Usage
 
+The following code provides a quick demo of how to use the PyLSCI package. 
+For a more detailed documentation, please see the 
+[Jupyter Notebook `demo.ipynb`](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb)
+that is provided in this GitHub project.
+
 ```python
 from pylsci import Lsci
+# for this example, it is assumed you have a custom helper module (here it is the util.py module)
+# that is responsible for converting your raw laser speckle images to the NumPy arrays expected by PyLSCI
+from util import convert_speckle_to_numpy
 
-# you will somehow need to convert raw speckle images to numpy arrays, eg using matplotlib
-from matplotlib import pyplot as plt
+# 1. Loading Raw Laser Speckle Data to NumPy Arrays
+# 
+# speckle_img represents a single laser speckle image as 2D NumPy array for spatial contrast ccalculation
+speckle_img = convert_speckle_to_numpy('img/spatial.tif')
+# speckle_img_sequence represents a time series of speckle images as a NumPy 3D array 
+# for temporal or spatio-temporal contrast calculation,
+# where the first dimension is the number of images
+speckle_img_sequence = convert_speckle_to_numpy('img/temporal.png', temporal_series=True)
 
-# you will need speckle images as numpy 2D array (single speckle image) for spatial contrast calculation ...
-speckle_img = plt.imread('img/spatial.tif')
-# or a sequence of speckle images as a numpy 3D array (time series of speckle images) 
-# for temporal or spatio-temporal contrast calculation
-# stack_images() is some custom function that converts the image sequence to a 3D array
-speckle_img_sequence = plt.imread('img/temporal.png').stack_images()
+# 2. Create a Lsci Object
+# 
+# you can pass custom values for the spatial and temporal neighborhoos arguments nbh_s and nbh_t.
+# Their values default to nbh_s=3 and nbh_t=25 if you omit them.
+# Note that nbh_s needs to be an odd value, but there is no constraint for nbh_t
+lsci = Lsci(nbh_s=5, nbh_t=40)
 
-# create an Lsci object
-lsci = Lsci()
-
-# the spatial contrast requires a single speckle image as a numpy 2D array
+# 3. Calculate the Laser Speckle Contrast Images
+#
+# 3.1 Spatial Contrast Calculation 
+# The spatial contrast calculation requires a single laser speckle image as a NumPy 2D array
+# and returns a single laser speckle contrast image as a 2D NumPy array.
 s_lsci = lsci.spatial_contrast(speckle_img)
 
-# the temporal and spatio-temporal contrast requires a 3D array (time series of speckle images)
+# 3.2 Temporal Contrast Calculation
+# The temporal and spatio-temporal contrast calculation require a 3D NumPy array (time series of laser speckle images)
+# and will return a single (averaged) laser speckle contrast image as a 2D NumPy array.
 t_lsci = lsci.temporal_contrast(speckle_img_sequence)
 st_lsci = lsci.spatio_temporal_contrast(speckle_img_sequence)
+
 ```
 
 ## Implementation Details
 
 Note that the iterations of the 2D or 3D arrays are not (yet) optimized. 
 The `temporal_contrast()` function performs quite well, 
-since numpy allows to calculate the standard deviation and mean along the temporal axis for the whole array.
+since NumPy allows to calculate the standard deviation and mean along the temporal axis for the whole array.
 This is not the case for the `spatial_contrast()` and `spatio_temporal_contrast()` functions,
 where the implementations rely on inefficient, nested loops.
 
