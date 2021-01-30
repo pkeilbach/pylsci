@@ -1,21 +1,11 @@
-from matplotlib import pyplot as plt
 from pylsci.lsci import Lsci
-from util import stack_images
+from util import stack_images, show_image
 
 # TODO
 #   - demo notebook
-#   - contact author for permission to use image and verification of code
-
-
-def show_image(img):
-    plt.imshow(img)
-    plt.colorbar()
-    plt.show()
 
 
 lsci = Lsci()
-# lsci.nbh_s = 4
-# lsci.nbh_s = 5
 
 print('temporal LSCI ...')
 speckle_imgs = plt.imread('img/temporal.png')

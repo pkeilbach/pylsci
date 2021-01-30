@@ -2,6 +2,8 @@
 
 A Python Package for Laser Speckle Contrast Imaging.
 
+It converts raw laser speckle data (as 2D or 3D NumPy arrays) to laser speckle contrast images (a 2D NumPy array). 
+
 ---
 
 The code for this package was developed for my thesis on 
@@ -53,9 +55,9 @@ speckle_img_sequence = convert_speckle_to_numpy('img/temporal.png', temporal_ser
 
 # 2. Create a Lsci Object
 # 
-# the nbh_s and nbh_t arguments are optional. 
-# Omitting them sets nbh_s to 3 and nbh_t to 25.
-# Note that nbh_s needs to be an odd value.
+# you can pass custom values for the spatial and temporal neighborhoos arguments nbh_s and nbh_t.
+# Their values default to nbh_s=3 and nbh_t=25 if you omit them.
+# Note that nbh_s needs to be an odd value, but there is no constraint for nbh_t
 lsci = Lsci(nbh_s=5, nbh_t=40)
 
 # 3. Calculate the Laser Speckle Contrast Images
