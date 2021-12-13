@@ -11,7 +11,7 @@ setuptools.setup(
     name='pylsci',
     version='1.0.1',
     author='Pascal Keilbach',
-    author_email='python@pk17.org',
+    author_email='dev@pk17.org',
     description='Python Package for Laser Speckle Contrast Imaging',
     long_description=long_description,
     long_description_content_type='text/markdown',
