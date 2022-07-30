@@ -14,16 +14,20 @@ The code for this package was developed for my thesis on [Fingerprint Presentati
 
 ## Quickstart
 
-Raw Laser Speckle data (2D or 3D NumPy Array) :point_right: PyLSCI :point_right: Laser Speckle Contrast Image (2D NumPy Array)
-
-> For a more detailed documentation, please see the [Jupyter Notebook `demo.ipynb`](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb) that is provided in this GitHub project.
-
 To work with this package, you need to have you laser speckle images available as 2D or 3D NumPy arrays:
 
 - For spatial contrast calculation, PyLSCI expects ayour raw laser speckle data as 2D NumPy Arrays.
 - For temporal or spatio-temporal contrast calculation, PyLSCI expects your raw laser speckle data a time series raw laser speckle data as a 3D NumPy Array, where the first dimension is the temporal domain.
 
-> The process of converting the raw laser speckle images to NumPy arrays is out of scope of the PyLSCI, since this process is highly dependent on a particular LSCI setup. So you may need a custom helper module to do that job for you.
+The process of converting the raw laser speckle images to NumPy arrays is out of scope of the PyLSCI, since this process is highly dependent on a particular LSCI setup. So you may need a custom helper module to do that job for you.
+
+The basic process looks as follows:
+
+![PyLSCI workflow](./img/pylsci.drawio.png "PyLSCI workflow")
+
+Raw Laser Speckle data (2D or 3D NumPy Array) :point_right: PyLSCI :point_right: Laser Speckle Contrast Image (2D NumPy Array)
+
+> For a more detailed documentation, please see the [Jupyter Notebook `demo.ipynb`](https://github.com/pkeilbach/pylsci/blob/develop/demo.ipynb) that is provided in this GitHub project.
 
 ### 0. Preparation
 
