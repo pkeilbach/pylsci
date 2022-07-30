@@ -23,6 +23,7 @@ def time_test(func):
         finish = time.perf_counter()
         print(f"run time: {start - finish}")
         return x
+
     return wrapper
 
 

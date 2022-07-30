@@ -54,7 +54,9 @@ class Lsci(object):
             self._nbh_s = value
         else:
             self._nbh_s = Lsci.NBH_S
-            print(f"invalid value for nbh_s: use odd number as spatial neighborhood. Using default value of {Lsci.NBH_S}")
+            print(
+                f"invalid value for nbh_s: use odd number as spatial neighborhood. Using default value of {Lsci.NBH_S}"
+            )
 
     @property
     def nbh_t(self):
@@ -141,7 +143,9 @@ class Lsci(object):
         # average the lsci image stack to return a single averaged t_lsci image
         return np.mean(t_lsci, axis=0)
 
-    def spatio_temporal_contrast(self, img_stack: np.ndarray, cubic: bool = False) -> np.ndarray:
+    def spatio_temporal_contrast(
+        self, img_stack: np.ndarray, cubic: bool = False
+    ) -> np.ndarray:
         # cubic = isotropic vs anisotropic (see Vaz' paper)
 
         # get dimensions
