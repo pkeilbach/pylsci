@@ -1,10 +1,8 @@
 # PyLSCI
 
-A Python package for Laser Speckle Contrast Imaging.
+A [Python package](https://pypi.org/project/pylsci/) for Laser Speckle Contrast Imaging.
 
 It converts raw laser speckle data (as 2D or 3D NumPy arrays) to laser speckle contrast images (a 2D NumPy array).
-
-[PyLSCI on PyPI](https://pypi.org/project/pylsci/)
 
 ![PyLSCI workflow](./img/pylsci.drawio.png "PyLSCI workflow")
 
