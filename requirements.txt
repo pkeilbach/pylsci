@@ -1,3 +1,5 @@
+# requirements for package development
+
 black~=22.6.0
 jupyter~=1.0.0
 matplotlib~=3.5.2

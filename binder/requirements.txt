@@ -1,3 +1,4 @@
-# for demo notebook
+# requirements for binder notebook
+
 matplotlib
 pylsci
