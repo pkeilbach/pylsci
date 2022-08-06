@@ -4,12 +4,15 @@
 ![Python: version](https://img.shields.io/pypi/v/pylsci)
 ![License: MIT](https://img.shields.io/pypi/l/pylsci)
 [![Downloads](https://pepy.tech/badge/pylsci/month)](https://pepy.tech/project/pylsci)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pkeilbach/pylsci/HEAD?labpath=binder%2Fdemo.ipynb)
 
 A [Python package](https://pypi.org/project/pylsci/) for Laser Speckle Contrast Imaging.
 
 It converts raw laser speckle data (as 2D or 3D NumPy arrays) to laser speckle contrast images (a 2D NumPy array).
 
 ![PyLSCI workflow](./img/pylsci.drawio.png "PyLSCI workflow")
+
+Check out the demo notebook at [mybinder.org](https://mybinder.org/v2/gh/pkeilbach/pylsci/HEAD?labpath=binder%2Fdemo.ipynb)
 
 ---
 
@@ -46,14 +49,14 @@ from my_utils import convert_speckle_to_numpy
 # spatial laser speckle images are expected to be a 2D NumPy array.
 speckle_img = convert_speckle_to_numpy('img/spatial.tif')
 
-# temporal laser specke image series are expected to be 3D NumPy arrays, 
+# temporal laser specke image series are expected to be 3D NumPy arrays,
 # where the first dimension is the temporal domain
 speckle_img_sequence = convert_speckle_to_numpy('img/temporal.png', temporal_series=True)
 ```
 
 ### 2. Create a Lsci Object
 
-Values for spatial and temporal neighborhoos arguments are optional. 
+Values for spatial and temporal neighborhoos arguments are optional.
 They default to `nbh_s=3` and `nbh_t=25`.
 Note that nbh_s needs to be an odd value, but there is no constraint for nbh_t
 
@@ -65,7 +68,7 @@ lsci = Lsci(nbh_s=5, nbh_t=40)
 
 ### 3. Calculate the Laser Speckle Contrast Images
 
-#### 3.1 Spatial Contrast Calculation 
+#### 3.1 Spatial Contrast Calculation
 
 The spatial contrast calculation requires a single laser speckle image as a NumPy 2D array and returns a single laser speckle contrast image as a 2D NumPy array.
 
@@ -86,12 +89,12 @@ st_lsci = lsci.spatio_temporal_contrast(speckle_img_sequence)
 
 ## Dependencies
 
-The PyLSCI packages depends on [NumPy](https://numpy.org/), 
-which is is used to do all the array related calculations.  
+The PyLSCI packages depends on [NumPy](https://numpy.org/),
+which is is used to do all the array related calculations.
 
 ## Implementation Details
 
-Note that the window iterations of the 2D arrays are not (yet) optimized. 
+Note that the window iterations of the 2D arrays are not (yet) optimized.
 
 The `temporal_contrast()` method performs quite well, since NumPy allows to calculate the standard deviation and mean along the temporal axis for the whole array.
 
