@@ -1,0 +1,4 @@
+# requirements for binder notebook
+
+matplotlib
+pylsci
