@@ -1,9 +1,10 @@
 # PyLSCI
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![Python: version](https://img.shields.io/pypi/v/pylsci)
 ![License: MIT](https://img.shields.io/pypi/l/pylsci)
 [![Downloads](https://pepy.tech/badge/pylsci/month)](https://pepy.tech/project/pylsci)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pkeilbach/pylsci/HEAD?labpath=binder%2Fdemo.ipynb)
 
