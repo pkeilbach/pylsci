@@ -4,6 +4,7 @@
 ![Python: version](https://img.shields.io/pypi/v/pylsci)
 ![License: MIT](https://img.shields.io/pypi/l/pylsci)
 [![Downloads](https://pepy.tech/badge/pylsci/month)](https://pepy.tech/project/pylsci)
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pkeilbach/pylsci/HEAD?labpath=binder%2Fdemo.ipynb)
 
 A [Python package](https://pypi.org/project/pylsci/) for Laser Speckle Contrast Imaging.
