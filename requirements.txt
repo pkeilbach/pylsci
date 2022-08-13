@@ -1,9 +1,0 @@
-# requirements for package development
-
-black~=22.6.0
-jupyter~=1.0.0
-matplotlib~=3.5.2
-numpy~=1.23.1
-pre-commit~=2.20.0
-twine~=4.0.1
-wheel~=0.37.1
