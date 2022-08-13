@@ -1,3 +1,6 @@
+# twine upload dist/*
+# twine upload --repository testpypi dist/*
+
 build: pre_commit
 	rm -rf dist/
 	python3.9 -m build
