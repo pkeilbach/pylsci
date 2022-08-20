@@ -28,6 +28,7 @@ dev = [
     "matplotlib~=3.5.2",
     "mypy~=0.971",
     "pre-commit~=2.20.0",
+    "pylint~=2.14.5",
     "twine~=4.0.1",
     "wheel~=0.37.1",
 ]
