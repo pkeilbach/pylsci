@@ -4,7 +4,7 @@
 import numpy as np
 
 
-class Lsci(object):
+class Lsci:
 
     """
     This class contains functionality to calculate laser speckle contrast
