@@ -1,3 +1,7 @@
+"""
+This test file is deprecated and will be removed in the future
+"""
+
 # from pylsci import Lsci
 # from util import stack_images, show_image, read_image
 
