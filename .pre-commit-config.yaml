@@ -10,3 +10,18 @@ repos:
     rev: 22.6.0
     hooks:
     -   id: black
+-   repo: local
+    hooks:
+    -   id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+-   repo: local
+    hooks:
+    -   id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args: ["--disable=invalid-name,too-many-locals"]

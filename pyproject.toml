@@ -1,0 +1,39 @@
+[build-system]
+requires      = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylsci"
+version = "1.1.1"
+description = "Python Package for Laser Speckle Contrast Imaging"
+readme = "README.md"
+authors = [{ name = "Pascal Keilbach", email = "dev@pk17.org" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+keywords = ["pylsci", "numpy", "laser", "speckle", "contrast", "imaging"]
+dependencies = [
+    "numpy~=1.23.1",
+]
+requires-python = ">=3.6"
+
+[project.optional-dependencies]
+dev = [
+    "black~=22.6.0",
+    "build~=0.8.0",
+    "jupyter~=1.0.0",
+    "matplotlib~=3.5.2",
+    "mypy~=0.971",
+    "pre-commit~=2.20.0",
+    "pylint~=2.14.5",
+    "twine~=4.0.1",
+    "wheel~=0.37.1",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/pkeilbach/pylsci"
+"Bug Tracker" = "https://github.com/pkeilbach/pylsci/issues"
+"Example Notebook" = "https://mybinder.org/v2/gh/pkeilbach/pylsci/HEAD?labpath=binder%2Fdemo.ipynb"

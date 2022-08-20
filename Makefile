@@ -1,9 +1,16 @@
-pre_commit: requirements
+# twine upload dist/*
+# twine upload --repository testpypi dist/*
+
+build: pre_commit
+	rm -rf dist/
+	python3.9 -m build
+
+pre_commit: pyproject
 	.venv/bin/pre-commit install
 	.venv/bin/pre-commit autoupdate
 
-requirements: .venv
-	.venv/bin/pip install -r requirements.txt
+pyproject: .venv
+	.venv/bin/pip install --upgrade pylsci[dev]
 
 .venv:
 	python3.9 -m venv --upgrade-deps .venv
