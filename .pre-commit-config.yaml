@@ -14,10 +14,14 @@ repos:
     rev: 'v0.971'
     hooks:
     -   id: mypy
-# - repo: local
-#   hooks:
-#     - id: pylint
-#       name: pylint
-#       entry: pylint
-#       language: system
-#       types: [python]
+- repo: local
+  hooks:
+    - id: pylint
+      name: pylint
+      entry: pylint
+      language: system
+      types: [python]
+      args:
+        [
+          "--disable=invalid-name,too-many-locals",
+        ]
