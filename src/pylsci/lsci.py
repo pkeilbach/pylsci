@@ -104,7 +104,7 @@ class Lsci:
             print(
                 f"""
                 invalid value for nbh_s: use odd number as spatial neighborhood.
-                Using default value of {Lsci.NBH_S}
+                Using default value of {Lsci.NBH_S}.
                 """
             )
 
