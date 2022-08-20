@@ -1,7 +1,20 @@
+"""module which contains the Lsci class
+"""
+
 import numpy as np
 
 
-class Lsci(object):
+class Lsci:
+
+    """
+    This class contains functionality to calculate laser speckle contrast
+    in spatial, temporal, or spatio-temporal domain.
+
+    Args:
+        nbh_s (int, optional): spatial neighborhood. Defaults to NBH_S.
+        nbh_t (int, optional): temporal neighborhood. Defaults to NBH_T.
+
+    """
 
     # default values for spatial and temporal neighborhood
     NBH_S = 3
@@ -9,10 +22,29 @@ class Lsci(object):
 
     @staticmethod
     def contrast(std, mean):
+        """
+        calculates the laser speckle contrast.
+
+        Args:
+            std (_type_): standard deviation.
+            mean (_type_): mean.
+
+        Returns:
+            _type_: laser speckle contrast.
+        """
         return std / mean
 
     @staticmethod
     def calc_temporal_contrast(layer: np.ndarray) -> np.ndarray:
+        """
+        calculates the speckle contrast in the temporal domain.
+
+        Args:
+            layer (np.ndarray): a 3D numpy array with laser speckle data.
+
+        Returns:
+            np.ndarray: a 2D numpy array of the calculated laser speckle contrast.
+        """
 
         # apply contrast formula in layer
         # axis = 0 specifies the temporal domain
@@ -36,6 +68,15 @@ class Lsci(object):
 
     @staticmethod
     def calc_array_contrast(arr: np.ndarray) -> float:
+        """
+        calc_array_contrast calculates the contrast for `arr`.
+
+        Args:
+            arr (np.ndarray): a 2D numpy array.
+
+        Returns:
+            float: contrast value for `arr`.
+        """
         std = np.std(arr)
         mean = np.mean(arr)
         return Lsci.contrast(std, mean)
@@ -45,7 +86,13 @@ class Lsci(object):
         self.nbh_t = nbh_t
 
     @property
-    def nbh_s(self):
+    def nbh_s(self) -> int:
+        """
+        spatial neighborhood for contrast calculation, must be an odd number.
+
+        Returns:
+            int: value for spatial neighborhood.
+        """
         return self._nbh_s
 
     @nbh_s.setter
@@ -55,11 +102,20 @@ class Lsci(object):
         else:
             self._nbh_s = Lsci.NBH_S
             print(
-                f"invalid value for nbh_s: use odd number as spatial neighborhood. Using default value of {Lsci.NBH_S}"
+                f"""
+                invalid value for nbh_s: use odd number as spatial neighborhood.
+                Using default value of {Lsci.NBH_S}.
+                """
             )
 
     @property
-    def nbh_t(self):
+    def nbh_t(self) -> int:
+        """
+        temporal neighborhood for contrast calculation.
+
+        Returns:
+            int: value for temporal neighborhood.
+        """
         return self._nbh_t
 
     @nbh_t.setter
@@ -67,6 +123,15 @@ class Lsci(object):
         self._nbh_t = value
 
     def spatial_contrast(self, speckle_img: np.ndarray) -> np.ndarray:
+        """
+        spatial contrast calculation.
+
+        Args:
+            speckle_img (np.ndarray): raw laser speckle as a 2D np.ndarray.
+
+        Returns:
+            np.ndarray: the calculated speckle contrast image as 2D np.ndarray.
+        """
 
         # kernel size to iterate the image is the spatial neighborhood
         k_s = self.nbh_s
@@ -95,6 +160,15 @@ class Lsci(object):
         return s_lsci
 
     def temporal_contrast(self, img_stack: np.ndarray) -> np.ndarray:
+        """
+        temporal contrast calculation.
+
+        Args:
+            img_stack (np.ndarray): a time series of raw laser speckle data as 3D np.ndarray.
+
+        Returns:
+            np.ndarray: the calculated speckle contrast image as 2D np.ndarray.
+        """
 
         # get dimensions
         stack_size, width, height = img_stack.shape
@@ -102,10 +176,12 @@ class Lsci(object):
         # get temporal neighborhood
         k_t = self.nbh_t
 
-        # determine number of lsci images that will be calculated from the image stack over the temporal neighborhood
+        # determine number of lsci images that will be calculated
+        # from the image stack over the temporal neighborhood
         n = int(stack_size / k_t)
 
-        # create array for lsci images that will be caluclated, size n is depending on the temporal neighborhood
+        # create array for lsci images that will be caluclated,
+        # size n is depending on the temporal neighborhood
         t_lsci = np.zeros([n, width, height])
 
         # temporal margin
@@ -123,13 +199,16 @@ class Lsci(object):
 
         # set start index
         start = m_t
-        # set end index of the first lsci images that will be calculated to the nbh over which it should be calculated
+        # set end index of the first lsci images that will be calculated
+        # to the nbh over which it should be calculated
         end = stack_size - m_t
         # the step size is the temporal neighborhood
         step = k_t
 
-        # from the cuboid of s=1000 laser speckle images, lsci images will be calculated in layers of nbh
-        # iterate all s=1000 images, depending on nbh, calculate multiple lsci images
+        # from the cuboid of s=1000 laser speckle images,
+        # lsci images will be calculated in layers of nbh
+        # iterate all s=1000 images, depending on nbh,
+        # calculate multiple lsci images
         for i in range(start, end, step):
             # start with start index, end at the specified neighborhood
             # layer = img_stack[start:end, :, :]
@@ -146,6 +225,18 @@ class Lsci(object):
     def spatio_temporal_contrast(
         self, img_stack: np.ndarray, cubic: bool = False
     ) -> np.ndarray:
+        """
+        spatio-temporal contrast calculation.
+
+        Args:
+            img_stack (np.ndarray): a time series of raw laser speckle data as 3D np.ndarray.
+            cubic (bool, optional): isotropic vs. anisotropic,
+                see Vaz et al.: https://doi.org/10.1109/RBME.2016.2532598.
+                Defaults to False.
+
+        Returns:
+            np.ndarray: the calculated speckle contrast image as 2D np.ndarray.
+        """
         # cubic = isotropic vs anisotropic (see Vaz' paper)
 
         # get dimensions
@@ -159,10 +250,12 @@ class Lsci(object):
         if cubic:
             k_t = k_s
 
-        # determine number of lsci images that will be calculated from the image stack over the temporal neighborhood
+        # determine number of lsci images that will be calculated
+        # from the image stack over the temporal neighborhood
         n = int(stack_size / k_t)
 
-        # create array for lsci images that will be caluclated, size n is depending on the temporal neighborhood
+        # create array for lsci images that will be caluclated,
+        # size n is depending on the temporal neighborhood
         st_lsci = np.zeros([n, width, height])
 
         # border margins
