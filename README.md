@@ -57,11 +57,11 @@ speckle_img = convert_speckle_to_numpy('img/spatial.tif')
 speckle_img_sequence = convert_speckle_to_numpy('img/temporal.png', temporal_series=True)
 ```
 
-### 2. Create a Lsci Object
+### 2. Create an Lsci Object
 
 Values for spatial and temporal neighborhoos arguments are optional.
 They default to `nbh_s=3` and `nbh_t=25`.
-Note that nbh_s needs to be an odd value, but there is no constraint for nbh_t
+Note that nbh_s needs to be an odd value, but there is no constraint for nbh_t.
 
 ```python
 from pylsci import Lsci
